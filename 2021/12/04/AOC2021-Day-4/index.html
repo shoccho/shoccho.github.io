@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Day 4 of Advent of code and I am already struggling. Today’s task was to play bingo with a giant squid. Lets see the description of bingo. Bingo is played on a set of boards each consisting of a 5x5 g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Advent of Code 2021 Day 4">
+<meta property="og:url" content="https://shoccho.github.io/2021/12/04/AOC2021-Day-4/index.html">
+<meta property="og:site_name" content="Random.rand_post()">
+<meta property="og:description" content="Day 4 of Advent of code and I am already struggling. Today’s task was to play bingo with a giant squid. Lets see the description of bingo. Bingo is played on a set of boards each consisting of a 5x5 g">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-12-03T18:00:00.000Z">
+<meta property="article:modified_time" content="2021-12-05T14:27:15.130Z">
+<meta property="article:author" content="Shoccho">
+<meta property="article:tag" content="AOC">
+<meta property="article:tag" content="Rust">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Advent of Code 2021 Day 4</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/projects_url">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/12/03/AOC2021-Day-3/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://shoccho.github.io/2021/12/04/AOC2021-Day-4/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://shoccho.github.io/2021/12/04/AOC2021-Day-4/&text=Advent of Code 2021 Day 4"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://shoccho.github.io/2021/12/04/AOC2021-Day-4/&title=Advent of Code 2021 Day 4"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://shoccho.github.io/2021/12/04/AOC2021-Day-4/&is_video=false&description=Advent of Code 2021 Day 4"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Advent of Code 2021 Day 4&body=Check out this article: https://shoccho.github.io/2021/12/04/AOC2021-Day-4/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://shoccho.github.io/2021/12/04/AOC2021-Day-4/&title=Advent of Code 2021 Day 4"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://shoccho.github.io/2021/12/04/AOC2021-Day-4/&title=Advent of Code 2021 Day 4"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://shoccho.github.io/2021/12/04/AOC2021-Day-4/&title=Advent of Code 2021 Day 4"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://shoccho.github.io/2021/12/04/AOC2021-Day-4/&title=Advent of Code 2021 Day 4"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://shoccho.github.io/2021/12/04/AOC2021-Day-4/&name=Advent of Code 2021 Day 4&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://shoccho.github.io/2021/12/04/AOC2021-Day-4/&t=Advent of Code 2021 Day 4"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#My-first-attempt"><span class="toc-number">1.</span> <span class="toc-text">My first attempt</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Trying-to-do-better"><span class="toc-number">2.</span> <span class="toc-text">Trying to do better</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Advent of Code 2021 Day 4
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Shoccho</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-12-03T18:00:00.000Z" itemprop="datePublished">2021-12-04</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/AOC/" rel="tag">AOC</a>, <a class="tag-link-link" href="/tags/Rust/" rel="tag">Rust</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>Day 4 of Advent of code and I am already struggling. Today’s task was to play bingo with a giant squid. Lets see the description of bingo.</p>
+<p>Bingo is played on a set of boards each consisting of a 5x5 grid of numbers. Numbers are chosen at random, and the chosen number is marked on all boards on which it appears. (Numbers may not appear on all boards.) If all numbers in any row or any column of a board are marked, that board wins. (Diagonals don’t count.)</p>
+<p>Our submarine has a system to play bingo with the giant squid (Because of course every submarine has one)<br>Anyways lets check our example input</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1</span><br><span class="line"></span><br><span class="line">22 13 17 11  0</span><br><span class="line"> 8  2 23  4 24</span><br><span class="line">21  9 14 16  7</span><br><span class="line"> 6 10  3 18  5</span><br><span class="line"> 1 12 20 15 19</span><br><span class="line"></span><br><span class="line"> 3 15  0  2 22</span><br><span class="line"> 9 18 13 17  5</span><br><span class="line">19  8  7 25 23</span><br><span class="line">20 11 10 24  4</span><br><span class="line">14 21 16 12  6</span><br><span class="line"></span><br><span class="line">14 21 17 24  4</span><br><span class="line">10 16 15  9 19</span><br><span class="line">18  8 23 26 20</span><br><span class="line">22 11 13  6  5</span><br><span class="line"> 2  0 12  3  7</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+<p> The first line contains the number series that we need to mark off the boards. and after that there comes the 5x5  bingo boards.</p>
+<h3 id="My-first-attempt"><a href="#My-first-attempt" class="headerlink" title="My first attempt"></a>My first attempt</h3><p>Lets get try to solve the problem diving head first into it. My first intuition was to create a struct Board that would contain the board gird (2d array) and implement methods accordingly.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const SIZE: usize = 5;</span><br><span class="line">const EMPTY: i32 = -5;</span><br><span class="line"></span><br><span class="line">#[derive(Debug)]</span><br><span class="line">struct Board &#123;</span><br><span class="line">    nums : [[i32;SIZE];SIZE]</span><br><span class="line">&#125;</span><br><span class="line">impl Board &#123;</span><br><span class="line">    fn new()-&gt;Self&#123;</span><br><span class="line">        Board&#123;</span><br><span class="line">            nums :[[0;SIZE];SIZE]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> I have defined two const one is for the size and another <code>EMPTY</code> some of you might already have figured out what I am going to do with it. So our task is to traverse through the number list(first line of our input) and mark off number from our boards and as all of them are positive numbers I thought of marking a number of the grid as replacing the number with <code>-1</code> and when we need to check if a board won we need to check the sums of rows and columns and if a row and column is marked off (all of the numbers are replaced with -1) we just need to check the sum if it is <code>-5</code> now we can write the functions for both of these tasks</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">fn mark(&amp;mut self, num: i32) &#123;</span><br><span class="line">    for i in 0..SIZE &#123;</span><br><span class="line">        for j in 0..SIZE &#123;</span><br><span class="line">            if self.nums[i][j] == num &#123;</span><br><span class="line">                self.nums[i][j] = -1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">fn check(&amp;self) -&gt; bool &#123;</span><br><span class="line">    for i in 0..self.nums.len() &#123;</span><br><span class="line">        if self.nums[i].iter().sum::&lt;i32&gt;() == NULL &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        let mut col_sum: i32 = 0;</span><br><span class="line">        for j in 0..SIZE &#123;</span><br><span class="line">            col_sum += self.nums[j][i];</span><br><span class="line">        &#125;</span><br><span class="line">        if col_sum == NULL &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    false</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><em>Cringing at the Bad code? I know</em></p>
+<p>Now we can use these functions as </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">for number in numbers&#123;</span><br><span class="line">    for board in &amp;mut boards&#123;</span><br><span class="line">        board.mark(number);</span><br><span class="line">        if board.check()&#123;</span><br><span class="line">            println!(&quot;&#123;:#?&#125;&quot;, number * board.sum());</span><br><span class="line">              return ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>As we can see we need to write a sum function as well we can do the same thing as we did in mark and have a variable add up all the grid positions.<br>But we need to be careful about the -1s that we are putting as numbers marked off.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">fn sum(&amp;self)-&gt;i32&#123;</span><br><span class="line">    let mut sum=0;</span><br><span class="line">    for i in 0..SIZE&#123;</span><br><span class="line">        for  j in 0..SIZE&#123;</span><br><span class="line">            if self.nums[i][j]!=-1&#123;</span><br><span class="line">                sum+=self.nums[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    sum</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ok now we have almost every thing we need what is remaining is parsing.</p>
+<p>Now there are a lot of better ways to do this but in my first approach I was confused how I am going to handle the first line and rest of the lines separately. Could’ve used <code>split_once</code> here. Instead what I searched for was how to remove first element from vector and stumbled upon <code>drain()</code> function. Heres what I did</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let mut lines = include_str!(&quot;input&quot;)</span><br><span class="line">                    .lines()</span><br><span class="line">                    .collect::&lt;Vec&lt;&amp;str&gt;&gt;();</span><br><span class="line">    let numbers = lines.first()</span><br><span class="line">                    .unwrap()</span><br><span class="line">                    .split(&#x27;,&#x27;)</span><br><span class="line">                    .map(|x|-&gt;i32&#123;x.parse().unwrap()&#125;)</span><br><span class="line">                    .collect::&lt;Vec&lt;i32&gt;&gt;();</span><br><span class="line"></span><br><span class="line">    lines.drain(0..1);</span><br></pre></td></tr></table></figure>
+
+<p>This gives me the numbers list in <code>numbers</code> vector. and lines now only has the boards separated by empty lines.<br>Now to split the boards by an empty line I couldn’t figure out that I could use <code>split(&quot;\n\n&quot;)</code>     Instead I got the idea to traverse as tuples and do<br>this</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let mut boards = lines</span><br><span class="line">                    .into_iter()</span><br><span class="line">                    .tuples()</span><br><span class="line">                    .into_iter()</span><br><span class="line">                    .map(|(_,a,b,c,d,e)|</span><br><span class="line">                        Board::from_str(vec![a,b,c,d,e])</span><br><span class="line">                    ).collect::&lt;Vec&lt;Board&gt;&gt;();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>As the first element in our 6 element tuple would be the empty line.</p>
+<p>Now we need to write the from_str function that would take an vector of vec&lt;&amp;str&gt; and parse it and create it into a Board.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">fn new()-&gt;Self&#123;</span><br><span class="line">    Board&#123;</span><br><span class="line">        nums :[[0;SIZE];SIZE]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">fn from_str(chunk :Vec&lt;&amp;str&gt;)-&gt;Self&#123;</span><br><span class="line">    let mut board = Board::new();</span><br><span class="line">    for i in 0..chunk.len()&#123;</span><br><span class="line">        let nums = chunk[i]</span><br><span class="line">                .split_whitespace()</span><br><span class="line">                .map(|x|-&gt;i32&#123;x.parse().unwrap()&#125;)</span><br><span class="line">                .collect::&lt;Vec&lt;i32&gt;&gt;();</span><br><span class="line">        for j in 0..nums.len()&#123;</span><br><span class="line">            board.nums[i][j]=nums[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    board</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Now we have written all the functions to solve part 1. </p>
+<p><strong>For part 2</strong><br>We need to find out which board will win at last and choose that board.<br>So to track if a board won we can modify our struct to have a boolean value won.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">struct Board &#123;</span><br><span class="line">    nums : [[i32;SIZE];SIZE],</span><br><span class="line">    won : bool</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>And while checking if a board has won or not we can just update the won status and when the next numbers appear we can just ignore the boards that have already won. I create a variable <code>last</code> that would contain the last boards result and when all the boards have won we can just print the     <code>last </code> variables</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">let mut last =0;</span><br><span class="line">for number in numbers&#123;        </span><br><span class="line">    for i in 0..boards.len()&#123;</span><br><span class="line">        if boards[i].won&#123;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">        boards[i].mark(number);</span><br><span class="line">        if boards[i].check()&#123;</span><br><span class="line">            boards[i].won=true;</span><br><span class="line">                last = number * boards[i].sum();    </span><br><span class="line">            &#125;         </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">println!(&quot;&#123;&#125;&quot;,last);</span><br></pre></td></tr></table></figure>
+
+<p>Now part 2 is done. But we need to improve. By huge margins. Unfortunately I am not smart enough to understand other peoples rust codes from r/adventofcode But heres what I could do make this a bit better</p>
+<h3 id="Trying-to-do-better"><a href="#Trying-to-do-better" class="headerlink" title="Trying to do better"></a>Trying to do better</h3><p>I really wanted to optimize my code better but I couldn’t the improvements are mostly idiomatic.</p>
+<p>First lets make some changes to the struct instead of a fixed size I changed it to a vector. My thinking was that the small overhead for handling vectors won’t be a problem.</p>
+<p>The major problem for today was parsing. And after I found out that you could do a <code>split(&quot;\n\n&quot;)</code> I reimplemented the whole board creating</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#[derive(Debug)]</span><br><span class="line">struct Board &#123;</span><br><span class="line">    nums: Vec&lt;Vec&lt;i32&gt;&gt;,</span><br><span class="line">    won: bool,</span><br><span class="line">&#125;</span><br><span class="line">impl Board &#123;</span><br><span class="line">    fn from_str(chunk: &amp;str) -&gt; Self &#123;</span><br><span class="line">        Board &#123;</span><br><span class="line">            nums: chunk</span><br><span class="line">                    .split(&#x27;\n&#x27;)</span><br><span class="line">                    .into_iter()</span><br><span class="line">                    .map(|x| &#123;</span><br><span class="line">                        x.split_whitespace()</span><br><span class="line">                        .map(|x| -&gt; i32 &#123;</span><br><span class="line">                                x.parse().unwrap()</span><br><span class="line">                            &#125;).collect::&lt;Vec&lt;i32&gt;&gt;()</span><br><span class="line">                    &#125;).collect(),</span><br><span class="line">            won: false,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The basic idea is still the same but instead of a <code>vec&lt;&amp;str&gt;</code> now we are parsing a <code>&amp;str</code> and  as the Boards.nums is now a vector we can use <code>collect()</code> easily.<br>I have also rewritten the sum function</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pub fn sum(&amp;self) -&gt; i32 &#123;</span><br><span class="line">    self.nums</span><br><span class="line">        .iter()</span><br><span class="line">        .flat_map(|r| r.iter().filter(|s| **s != -1))</span><br><span class="line">        .sum()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>And finally for getting the last output. Instead of running the whole game again for part 2 I just simulated the whole game once and printed the result for the first board and second board.</p>
+<p>The problems that I am solving are just for my own learning. I do not encourage you to follow my codes or coding style even. These are really poorly written code with really bad approaches. If you want to learn rust read the rust book or check rust forums. Or if you just want to solve adventofcode puzzles you can visit r/adventofcode and other forums for discussions or help or even solutions. </p>
+<p>Thank you for reading.</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#My-first-attempt"><span class="toc-number">1.</span> <span class="toc-text">My first attempt</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Trying-to-do-better"><span class="toc-number">2.</span> <span class="toc-text">Trying to do better</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://shoccho.github.io/2021/12/04/AOC2021-Day-4/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://shoccho.github.io/2021/12/04/AOC2021-Day-4/&text=Advent of Code 2021 Day 4"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://shoccho.github.io/2021/12/04/AOC2021-Day-4/&title=Advent of Code 2021 Day 4"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://shoccho.github.io/2021/12/04/AOC2021-Day-4/&is_video=false&description=Advent of Code 2021 Day 4"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Advent of Code 2021 Day 4&body=Check out this article: https://shoccho.github.io/2021/12/04/AOC2021-Day-4/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://shoccho.github.io/2021/12/04/AOC2021-Day-4/&title=Advent of Code 2021 Day 4"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://shoccho.github.io/2021/12/04/AOC2021-Day-4/&title=Advent of Code 2021 Day 4"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://shoccho.github.io/2021/12/04/AOC2021-Day-4/&title=Advent of Code 2021 Day 4"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://shoccho.github.io/2021/12/04/AOC2021-Day-4/&title=Advent of Code 2021 Day 4"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://shoccho.github.io/2021/12/04/AOC2021-Day-4/&name=Advent of Code 2021 Day 4&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://shoccho.github.io/2021/12/04/AOC2021-Day-4/&t=Advent of Code 2021 Day 4"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    Shoccho
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/projects_url">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
