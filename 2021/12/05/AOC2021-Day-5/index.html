@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="After playing games with our giant squid friend today we are going to do some mapping. We have some hydrothermal vents. We need to find where the vents overlap. The input looks like this 123456789100,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Advent of Code 2021 Day 5">
+<meta property="og:url" content="https://shoccho.github.io/2021/12/05/AOC2021-Day-5/index.html">
+<meta property="og:site_name" content="Random.rand_post()">
+<meta property="og:description" content="After playing games with our giant squid friend today we are going to do some mapping. We have some hydrothermal vents. We need to find where the vents overlap. The input looks like this 123456789100,">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-12-04T18:00:00.000Z">
+<meta property="article:modified_time" content="2021-12-06T18:16:14.736Z">
+<meta property="article:author" content="Shoccho">
+<meta property="article:tag" content="AOC">
+<meta property="article:tag" content="Rust">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Advent of Code 2021 Day 5</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/projects_url">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/12/04/AOC2021-Day-4/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://shoccho.github.io/2021/12/05/AOC2021-Day-5/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://shoccho.github.io/2021/12/05/AOC2021-Day-5/&text=Advent of Code 2021 Day 5"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://shoccho.github.io/2021/12/05/AOC2021-Day-5/&title=Advent of Code 2021 Day 5"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://shoccho.github.io/2021/12/05/AOC2021-Day-5/&is_video=false&description=Advent of Code 2021 Day 5"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Advent of Code 2021 Day 5&body=Check out this article: https://shoccho.github.io/2021/12/05/AOC2021-Day-5/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://shoccho.github.io/2021/12/05/AOC2021-Day-5/&title=Advent of Code 2021 Day 5"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://shoccho.github.io/2021/12/05/AOC2021-Day-5/&title=Advent of Code 2021 Day 5"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://shoccho.github.io/2021/12/05/AOC2021-Day-5/&title=Advent of Code 2021 Day 5"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://shoccho.github.io/2021/12/05/AOC2021-Day-5/&title=Advent of Code 2021 Day 5"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://shoccho.github.io/2021/12/05/AOC2021-Day-5/&name=Advent of Code 2021 Day 5&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://shoccho.github.io/2021/12/05/AOC2021-Day-5/&t=Advent of Code 2021 Day 5"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Implementation"><span class="toc-number">1.</span> <span class="toc-text">Implementation</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Advent of Code 2021 Day 5
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Shoccho</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-12-04T18:00:00.000Z" itemprop="datePublished">2021-12-05</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/AOC/" rel="tag">AOC</a>, <a class="tag-link-link" href="/tags/Rust/" rel="tag">Rust</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>After playing games with our giant squid friend today we are going to do some mapping. We have some hydrothermal vents. We need to find where the vents overlap.</p>
+<p>The input looks like this</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">0,9 -&gt; 5,9</span><br><span class="line">8,0 -&gt; 0,8</span><br><span class="line">9,4 -&gt; 3,4</span><br><span class="line">2,2 -&gt; 2,1</span><br><span class="line">7,0 -&gt; 7,4</span><br><span class="line">6,4 -&gt; 2,0</span><br><span class="line">0,9 -&gt; 2,9</span><br><span class="line">3,4 -&gt; 1,4</span><br><span class="line">0,0 -&gt; 8,8</span><br><span class="line">5,5 -&gt; 8,2</span><br></pre></td></tr></table></figure>
+
+<p>The list contains two endpoints of a vent.<br>For the first part we just have to consider the straight lines if we plot the lines in a grid we can see the overlapping points</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.......1..</span><br><span class="line">..1....1..</span><br><span class="line">..1....1..</span><br><span class="line">.......1..</span><br><span class="line">.112111211</span><br><span class="line">..........</span><br><span class="line">..........</span><br><span class="line">..........</span><br><span class="line">..........</span><br><span class="line">222111....</span><br></pre></td></tr></table></figure>
+<p>We just need find these and count the overlapping points.</p>
+<h3 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h3><p>First we can create a struct for a point and We can use the point struct to create a line (vent) struct </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">struct Point &#123;</span><br><span class="line">    x: i32,</span><br><span class="line">    y:i32</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">struct Line &#123;</span><br><span class="line">    start: Point,</span><br><span class="line">    end: Point,</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>As our today’s puzzle is pretty straightforward we can implement a few methods easily. First we can think about parsing the input. The input consist of lines like this <code>0,9 -&gt; 5,9</code> the starting point is 0,9 and ending point is 5,9. Lets write the functions.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">impl Point&#123;</span><br><span class="line">    fn from_str(line: &amp;str)-&gt;Self&#123;</span><br><span class="line">        let mut tokens = line.trim().split(&#x27;,&#x27;);</span><br><span class="line">        Point&#123;</span><br><span class="line">            x:tokens.next().unwrap().parse().unwrap(),</span><br><span class="line">            y:tokens.next().unwrap().parse().unwrap(),</span><br><span class="line">                        </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">impl Line &#123;</span><br><span class="line">    fn parse(line: &amp;str)-&gt;Self&#123;</span><br><span class="line">        let mut tokens =</span><br><span class="line">            line.split(&quot;-&gt;&quot;);</span><br><span class="line">        Line&#123;</span><br><span class="line">            start : Point::from_str(tokens.next().unwrap()),</span><br><span class="line">            end:Point::from_str(tokens.next().unwrap())</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>As for the first part we need to get all the points inside a straight line<br>we can write a function to check if a line is straight or not</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fn straight(&amp;self) -&gt; bool &#123;</span><br><span class="line">    self.start.x == self.end.x || self.start.y == self.end.y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>If the line straight we need to get the points covered by the line.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">fn get_straight_points(&amp;self) -&gt; Vec&lt;Point&gt; &#123;</span><br><span class="line">    let mut ret: Vec&lt;Point&gt; = Vec::new();</span><br><span class="line"></span><br><span class="line">    if self.start.x == self.end.x &#123;</span><br><span class="line">        let fixed = self.start.x;</span><br><span class="line">        let m = cmp::min(self.start.y, self.end.y);</span><br><span class="line">        let n = cmp::max(self.start.y, self.end.y);</span><br><span class="line">            </span><br><span class="line">        for i in m..=n &#123;</span><br><span class="line">            ret.push(Point::new(fixed, i));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        let fixed = self.start.y;</span><br><span class="line">        let m = cmp::min(self.start.x, self.end.x);</span><br><span class="line">        let n = cmp::max(self.start.x, self.end.x);</span><br><span class="line">        for i in m..=n &#123;</span><br><span class="line">            ret.push(Point::new(i, fixed));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ret</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>Now we have all the functions necessary to solve part 1. For the grid I am creating a HashMap of points and boolean. For creating a HashMap of point we need to derive <code>PartialEq,Eq and Hash</code> traits for our struct point we can do that just by typing <code>#[derive(traits)]</code> before the struct like this.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#[derive(Debug, PartialEq, Eq, Hash, Clone)]</span><br><span class="line">struct Point &#123;</span><br><span class="line">    x: i32,</span><br><span class="line">    y: i32,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>We can just derive like this because the elements of the struct (i32) have the trait already implemented.</p>
+<p>We traverse through the list to create lines. Then we iterate through the lines (redundant I know) and if the line is straight we fetch all the points covered by the line. We put all the points  in the hashmap as false. When entering the points in the hashmap if we find that the point exists in the hashmap as false that means it is overlapping we can just change the value to true and if we find it the next time we will ignore because we just have to consider at least 2 lines overlapping if there is more we do not care.<br>Lets write the driver function</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">fn solve1(lines: &amp;Vec&lt;Line&gt;) &#123;</span><br><span class="line">    let mut map: HashMap&lt;Point, bool&gt; = HashMap::new();</span><br><span class="line">    let mut res = 0;</span><br><span class="line">    for line in lines &#123;</span><br><span class="line">        if line.straight() &#123;</span><br><span class="line">            let points = line.get_points();</span><br><span class="line">            for point in points &#123;</span><br><span class="line">                match map.get(&amp;point) &#123;</span><br><span class="line">                    Some(false) =&gt; &#123;</span><br><span class="line">                        res += 1;</span><br><span class="line">                        *map.get_mut(&amp;point).unwrap() = true;</span><br><span class="line">                    &#125;</span><br><span class="line">                    Some(true) =&gt; &#123;&#125;</span><br><span class="line">                    None =&gt; &#123;</span><br><span class="line">                        map.insert(point, false);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    println!(&quot;&#123;:?&#125;&quot;, res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Pretty straight forward implementation. </p>
+<p>As for the part 2  now we have to consider the diagonals but only 45° diagonals.<br>Now we can easily write a function to get all the points covered by a line.<br>If the line is straight we can call our previous function else we can compute the diagonal points</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">fn get_points(&amp;self) -&gt; Vec&lt;Point&gt; &#123;</span><br><span class="line">        let mut ret: Vec&lt;Point&gt; = Vec::new();</span><br><span class="line"></span><br><span class="line">        let x1 = cmp::min(self.start.x, self.end.x);</span><br><span class="line">        let x2 = cmp::max(self.start.x, self.end.x);</span><br><span class="line">        let mut dx = 1;</span><br><span class="line">        let mut dy = 1;</span><br><span class="line"></span><br><span class="line">        if self.start.x &gt; self.end.x &#123;</span><br><span class="line">            dx = -1;</span><br><span class="line">        &#125;</span><br><span class="line">        if self.start.y &gt; self.end.y &#123;</span><br><span class="line">            dy = -1</span><br><span class="line">        &#125;</span><br><span class="line">        let diff = x2 - x1;</span><br><span class="line">        if self.straight() &#123;</span><br><span class="line">            return self.get_straight_points();</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            for i in 0..=diff &#123;</span><br><span class="line">                ret.push(Point::new(</span><br><span class="line">                		self.start.x + (dx * i),</span><br><span class="line">                 	self.start.y + (dy * i))</span><br><span class="line">                 );</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ret</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>Now we can call the <code>get_points()</code> instead of <code>get_straight_points()</code> and also remove the check for straight points for solving part 2</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">fn solve2(lines: &amp;Vec&lt;Line&gt;) &#123;</span><br><span class="line">    let mut map: HashMap&lt;Point, bool&gt; = HashMap::new();</span><br><span class="line">    let mut res = 0;</span><br><span class="line">    for line in lines &#123;</span><br><span class="line">        let points = line.get_points();</span><br><span class="line">        for point in points &#123;</span><br><span class="line">            match map.get(&amp;point) &#123;</span><br><span class="line">                Some(false) =&gt; &#123;</span><br><span class="line">                    res += 1;</span><br><span class="line">                    *map.get_mut(&amp;point).unwrap() = true;</span><br><span class="line">                &#125;</span><br><span class="line">                Some(true) =&gt; &#123;&#125;</span><br><span class="line">                None =&gt; &#123;</span><br><span class="line">                    map.insert(point, false);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    println!(&quot;part 2 &#123;:?&#125;&quot;, res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>You could argue that I could use the previous map from part 1 and ignore the straight lines but I thought keeping them separated would be better.<br>This concludes solving both parts of day 5 puzzle.</p>
+<p>The problems that I am solving are just for my own learning. I do not encourage you to follow my codes or coding style even. These are really poorly written code with really bad approaches. If you want to learn rust read the rust book or check rust forums. Or if you just want to solve adventofcode puzzles you can visit r/adventofcode and other forums for discussions or help or even solutions. </p>
+<p>Thank you for reading.</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Implementation"><span class="toc-number">1.</span> <span class="toc-text">Implementation</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://shoccho.github.io/2021/12/05/AOC2021-Day-5/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://shoccho.github.io/2021/12/05/AOC2021-Day-5/&text=Advent of Code 2021 Day 5"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://shoccho.github.io/2021/12/05/AOC2021-Day-5/&title=Advent of Code 2021 Day 5"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://shoccho.github.io/2021/12/05/AOC2021-Day-5/&is_video=false&description=Advent of Code 2021 Day 5"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Advent of Code 2021 Day 5&body=Check out this article: https://shoccho.github.io/2021/12/05/AOC2021-Day-5/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://shoccho.github.io/2021/12/05/AOC2021-Day-5/&title=Advent of Code 2021 Day 5"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://shoccho.github.io/2021/12/05/AOC2021-Day-5/&title=Advent of Code 2021 Day 5"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://shoccho.github.io/2021/12/05/AOC2021-Day-5/&title=Advent of Code 2021 Day 5"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://shoccho.github.io/2021/12/05/AOC2021-Day-5/&title=Advent of Code 2021 Day 5"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://shoccho.github.io/2021/12/05/AOC2021-Day-5/&name=Advent of Code 2021 Day 5&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://shoccho.github.io/2021/12/05/AOC2021-Day-5/&t=Advent of Code 2021 Day 5"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    Shoccho
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/projects_url">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
