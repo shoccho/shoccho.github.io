@@ -1,0 +1,37 @@
+{{ define "main" }}
+  <article class="article">
+    <header class="article-header">
+      <p class="eyebrow">{{ .Section }}</p>
+      <h1>{{ .Title }}</h1>
+      {{ with .Params.summary }}<p class="lead">{{ . }}</p>{{ end }}
+      {{ with .Params.repo }}
+        <p class="article-links"><a href="{{ . }}">Repository</a></p>
+      {{ end }}
+    </header>
+    <div class="article-body">
+      {{ if eq .Section "projects" }}
+        {{ with .Params.details }}<p>{{ . }}</p>{{ end }}
+        {{ with .Params.highlights }}
+          <h2>Highlights</h2>
+          <ul>
+            {{ range . }}
+              <li>{{ . }}</li>
+            {{ end }}
+          </ul>
+        {{ end }}
+        {{ with .Params.links }}
+          <h2>{{ $.Params.linksTitle | default "Links" }}</h2>
+          <ul>
+            {{ range . }}
+              <li>
+                <a href="{{ .url }}">{{ .label }}</a>{{ with .note }}: {{ . }}{{ end }}
+              </li>
+            {{ end }}
+          </ul>
+        {{ end }}
+      {{ else }}
+        {{ .Content }}
+      {{ end }}
+    </div>
+  </article>
+{{ end }}

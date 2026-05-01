@@ -1,0 +1,33 @@
+---
+title: "Additional public work"
+summary: "Older projects, learning exercises, and smaller public repositories."
+tags: ["archive", "learning", "misc"]
+details: "Older projects, learning exercises, and smaller public repositories."
+linksTitle: "Repositories"
+links:
+  - label: "Maze_generator_P5"
+    url: "https://github.com/shoccho/Maze_generator_P5"
+    note: "recursive backtracking maze generation in p5.js"
+  - label: "Chess_with_AI"
+    url: "https://github.com/shoccho/Chess_with_AI"
+    note: "chess game with AI written in Processing"
+  - label: "English_To_Bangla_dictionary"
+    url: "https://github.com/shoccho/English_To_Bangla_dictionary"
+    note: "Java Swing dictionary application"
+  - label: "mute-em"
+    url: "https://github.com/shoccho/mute-em"
+    note: "Discord voice-channel mute bot"
+  - label: "SpeakIt-jp"
+    url: "https://github.com/shoccho/SpeakIt-jp"
+    note: "browser extension for reading selected Japanese text aloud"
+  - label: "aoc2024"
+    url: "https://github.com/shoccho/aoc2024"
+    note: "Advent of Code practice"
+  - label: "aoc-2021"
+    url: "https://github.com/shoccho/aoc-2021"
+    note: "Advent of Code practice"
+  - label: "barebones-computer-using-hdl"
+    url: "https://github.com/shoccho/barebones-computer-using-hdl"
+    note: "computer architecture learning experiment"
+weight: 20
+---

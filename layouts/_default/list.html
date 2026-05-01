@@ -1,0 +1,21 @@
+{{ define "main" }}
+  <section class="page-head">
+    <p class="eyebrow">{{ .Section }}</p>
+    <h1>{{ .Title }}</h1>
+    {{ with .Content }}<div class="intro">{{ . }}</div>{{ end }}
+  </section>
+
+  <section class="item-list">
+    {{ range .Pages.ByWeight }}
+      <article class="list-item">
+        <p class="item-meta">
+          {{ with .Params.role }}{{ . }}{{ end }}
+          {{ with .Params.period }}{{ if $.Params.role }} · {{ end }}{{ . }}{{ end }}
+          {{ with .Params.tags }}{{ delimit . " · " }}{{ end }}
+        </p>
+        <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        <p>{{ .Params.summary }}</p>
+      </article>
+    {{ end }}
+  </section>
+{{ end }}

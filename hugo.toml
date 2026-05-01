@@ -1,0 +1,35 @@
+baseURL = "https://shoccho.github.io/"
+locale = "en-US"
+title = "shoccho"
+enableRobotsTXT = true
+
+[params]
+  description = "Software engineer working on cloud media systems, internal tools, and small technical experiments."
+  author = "shoccho"
+  legalName = "Md. Eftakharul Islam"
+  email = "sfb.shoccho@gmail.com"
+  phone = "+8801777623707"
+  github = "https://github.com/shoccho"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[menu]
+  [[menu.main]]
+    name = "Work"
+    pageRef = "/work"
+    weight = 10
+  [[menu.main]]
+    name = "Projects"
+    pageRef = "/projects"
+    weight = 20
+  [[menu.main]]
+    name = "Notes"
+    pageRef = "/notes"
+    weight = 30
+  [[menu.main]]
+    name = "About"
+    pageRef = "/about"
+    weight = 40

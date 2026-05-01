@@ -1,0 +1,68 @@
+{{ define "main" }}
+  <section class="hero">
+    <p class="eyebrow">Software engineer</p>
+    <h1>Software for media platforms, cloud workflows, and practical tools.</h1>
+    <p class="lead">
+      I work on streaming-platform software, AWS-backed services, CMS workflows, and internal tools.
+      My public work reflects the same interests at a smaller scale: graphics programming, browser APIs,
+      media formats, and focused utilities.
+    </p>
+    <div class="hero-actions">
+      <a class="button" href="/work/">Professional work</a>
+      <a class="button button-secondary" href="/projects/">Selected projects</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <p class="eyebrow">Capabilities</p>
+      <h2>Technical focus</h2>
+    </div>
+    <div class="capability-grid">
+      <article>
+        <h3>Media platforms</h3>
+        <p>CMS workflows, video ingest, schedule publishing, curation, subscriptions, and service communication across GraphQL, REST, and WebSocket APIs.</p>
+      </article>
+      <article>
+        <h3>Cloud-native systems</h3>
+        <p>AWS Lambda, TypeScript services, Java middleware, Elasticsearch-backed discovery, and operational tools for production workflows.</p>
+      </article>
+      <article>
+        <h3>Technical experiments</h3>
+        <p>OpenGL rendering, Rust ray tracing and raycasting, browser APIs, file-format decoding, and focused utilities with a clear technical purpose.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <p class="eyebrow">Selected work</p>
+      <h2>Professional work</h2>
+    </div>
+    <div class="item-list">
+      {{ range first 3 (where .Site.RegularPages "Section" "work") }}
+        <article class="list-item">
+          <p class="item-meta">{{ .Params.role }} · {{ .Params.period }}</p>
+          <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          <p>{{ .Params.summary }}</p>
+        </article>
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <p class="eyebrow">Selected projects</p>
+      <h2>Selected projects</h2>
+    </div>
+    <div class="item-list">
+      {{ range first 4 (where .Site.RegularPages "Section" "projects") }}
+        <article class="list-item">
+          <p class="item-meta">{{ delimit .Params.tags " · " }}</p>
+          <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          <p>{{ .Params.summary }}</p>
+        </article>
+      {{ end }}
+    </div>
+  </section>
+{{ end }}
