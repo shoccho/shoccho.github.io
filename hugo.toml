@@ -2,6 +2,7 @@ baseURL = "https://shoccho.github.io/"
 locale = "en-US"
 title = "shoccho"
 enableRobotsTXT = true
+languageCode = "en-US"
 
 [params]
   description = "Software engineer working on cloud media systems, internal tools, and small technical experiments."
