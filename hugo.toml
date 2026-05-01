@@ -1,5 +1,4 @@
 baseURL = "https://shoccho.github.io/"
-locale = "en-US"
 title = "shoccho"
 enableRobotsTXT = true
 languageCode = "en-US"
